@@ -87,6 +87,46 @@ begin
         sig_tb <= "0000"; -- "-"
         wait for DELAY;
 
+        -- AND operation with result = 12
+        in1_tb <= std_logic_vector(to_signed(28, 16));
+        in2_tb <= std_logic_vector(to_signed(13, 16));
+        sig_tb <= "0010"; -- "AND"
+        wait for DELAY;
+
+        -- OR operation with result = 9
+        in1_tb <= std_logic_vector(to_signed(25, 16));
+        in2_tb <= std_logic_vector(to_signed(13, 16));
+        sig_tb <= "0011"; -- "OR"
+        wait for DELAY;
+
+        -- NOT operation on in1, result is inverse of 25 --> -26
+        in1_tb <= std_logic_vector(to_signed(25, 16));
+        sig_tb <= "0100"; -- "NOT"
+        wait for DELAY;
+
+        -- NOT operation on in2, result is inverse of -14 --> -13
+        in2_tb <= std_logic_vector(to_signed(-14, 16));
+        sig_tb <= "0100"; -- "NOT"
+        wait for DELAY;
+
+        -- XOR operation with result = 17
+        in1_tb <= std_logic_vector(to_signed(28, 16));
+        in2_tb <= std_logic_vector(to_signed(13, 16));
+        sig_tb <= "0101"; -- "XOR"
+        wait for DELAY;
+
+        -- AND with all bits set with result = - 1
+        in1_tb <= std_logic_vector(to_signed(-1, 16));
+        in2_tb <= std_logic_vector(to_signed(-1, 16));
+        sig_tb <= "0010"; -- "AND"
+        wait for DELAY;
+
+        -- OR with alternating bits
+        in1_tb <= std_logic_vector(to_signed(21845, 16));
+        in2_tb <= std_logic_vector(to_signed(-21846, 16));
+        sig_tb <= "0011"; -- "OR"
+        wait for DELAY;
+        
         wait;
     end process;
 

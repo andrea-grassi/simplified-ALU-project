@@ -42,7 +42,7 @@ begin
                 else
                     result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
                 end if;
-                
+
             when 1 =>  -- Case "-"
                 temp_result <= signed('0' & in1) - signed('0' & in2);
                 
@@ -55,7 +55,27 @@ begin
                 else
                     result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
                 end if;
-                
+            
+            when 2 => -- Case AND
+                temp_result <= signed('0' & (in1 and in2));
+                result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
+            
+            when 3 => -- Case OR
+            temp_result <= signed('0' & (in1 and in2));
+                result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
+
+            when 4 => -- Case NOT in1
+                temp_result <= signed('0' & (not in1));
+                result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
+            
+            when 5 => -- Case NOT in2
+                temp_result <= signed('0' & (not in2));
+                result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
+            
+            when 6 => -- Case XOR
+                temp_result <= signed('0' & (in1 xor in2));
+                result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
+            
             when others => -- Default case, by choice, sets result = 0
                 temp_result <= (others => '0');
                 result <= (others => '0');
