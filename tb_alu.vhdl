@@ -14,20 +14,22 @@ architecture testbench of tb_alu is
     -- Component declaration for the Unit Under Test (UUT)
     component calculator
         Port(
-            in1      : in  STD_LOGIC_VECTOR(WIDTH - 1     downto 0);
-            in2      : in  STD_LOGIC_VECTOR(WIDTH - 1     downto 0);
+            in1      : in  STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
+            in2      : in  STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
             sig      : in  STD_LOGIC_VECTOR(SIG_WIDTH - 1 downto 0);
-            result   : out STD_LOGIC_VECTOR(WIDTH - 1     downto 0);
-            overflow : out STD_LOGIC
+            result   : out STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
+            overflow : out STD_LOGIC;
+            zero     : out STD_LOGIC
         );
     end component;
 
     -- Internal tb signals to connect to the UUT
-    signal in1_tb      : STD_LOGIC_VECTOR(WIDTH - 1     downto 0);
-    signal in2_tb      : STD_LOGIC_VECTOR(WIDTH - 1     downto 0);
+    signal in1_tb      : STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
+    signal in2_tb      : STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
     signal sig_tb      : STD_LOGIC_VECTOR(SIG_WIDTH - 1 downto 0);
-    signal result_tb   : STD_LOGIC_VECTOR(WIDTH - 1     downto 0);
+    signal result_tb   : STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
     signal overflow_tb : STD_LOGIC;
+    signal zero        : STD_LOGIC;
 
 begin
 

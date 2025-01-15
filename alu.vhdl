@@ -5,16 +5,17 @@ use IEEE.NUMERIC_STD.ALL;
 entity calculator is
     -- Constant fixed values
     generic (
-        WIDTH : integer := 16;     -- Width for vectors
+        WIDTH     : integer := 16; -- Width for vectors
         SIG_WIDTH : integer := 4   -- Width for signals
     );
     -- Definition signals of the entity
     Port ( 
-        in1 : in STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        in2 : in STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        result : out STD_LOGIC_VECTOR(WIDTH - 1 downto 0);
-        sig : in STD_LOGIC_VECTOR(SIG_WIDTH - 1 downto 0);
-        overflow : out STD_LOGIC
+        in1       : in STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
+        in2       : in STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
+        result    : out STD_LOGIC_VECTOR(WIDTH    - 1 downto 0);
+        sig       : in STD_LOGIC_VECTOR(SIG_WIDTH - 1 downto 0);
+        overflow  : out STD_LOGIC;
+        zero      : out STD_LOGIC
     );
 end calculator;
 
@@ -26,8 +27,9 @@ begin
     -- Sensitivity check list
     process(sig, in1, in2, temp_result)
     begin
-        -- Default value for overflow to 0
+        -- Default value for overflow to 0 and zero to 0
         overflow <= '0';
+        zero <= '0';
 
         -- Case to chose the right operation to do
         case to_integer(unsigned(sig)) is
@@ -47,7 +49,7 @@ begin
                 temp_result <= signed('0' & in1) - signed('0' & in2);
                 
                 -- Control overflow for subtraction
-                if (in1(WIDTH - 1) /= in2(WIDTH - 1)) and (         -- Different sign operands
+                if (in1(WIDTH - 1) /= in2(WIDTH - 1)) and (          -- Different sign operands
                    (in1(WIDTH - 1) /= temp_result(WIDTH - 1)) or (
                     in2(WIDTH - 1) /= temp_result(WIDTH - 1))) then  -- Result sign MSB differs from operand 
                     overflow <= '1';
