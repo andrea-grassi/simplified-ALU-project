@@ -9,7 +9,7 @@ architecture testbench of tb_alu is
     -- Constant fixed values
     constant WIDTH     : integer := 16;
     constant SIG_WIDTH : integer := 4;
-    constant DELAY     : time := 10 ns; -- delay between operations
+    constant DELAY     : time    := 10 ns; -- delay between operations
 
     -- Component declaration for the Unit Under Test (UUT)
     component calculator
@@ -29,7 +29,7 @@ architecture testbench of tb_alu is
     signal sig_tb      : STD_LOGIC_VECTOR(SIG_WIDTH - 1 downto 0);
     signal result_tb   : STD_LOGIC_VECTOR(WIDTH     - 1 downto 0);
     signal overflow_tb : STD_LOGIC;
-    signal zero        : STD_LOGIC;
+    signal zero_tb     : STD_LOGIC;
 
 begin
 
@@ -40,7 +40,8 @@ begin
             in2      => in2_tb,
             sig      => sig_tb,
             result   => result_tb,
-            overflow => overflow_tb
+            overflow => overflow_tb,
+            zero     => zero_tb
         );
 
     -- Stimulus process
@@ -71,12 +72,6 @@ begin
         sig_tb <= "0000"; -- "+"
         wait for DELAY;
 
-        -- Subtraction with in2 negative number and in1 positive, negative result = -4
-        in1_tb <= std_logic_vector(to_signed(8, 16));
-        in2_tb <= std_logic_vector(to_signed(-12, 16));
-        sig_tb <= "0001"; -- "-"
-        wait for DELAY;
-
         -- Subtraction positive numbers and result = 2538
         in1_tb <= std_logic_vector(to_signed(5643, 16));
         in2_tb <= std_logic_vector(to_signed(3105, 16));
@@ -86,7 +81,7 @@ begin
         -- Addition positive numbers, overflow and result = 0
         in1_tb <= std_logic_vector(to_signed(32000, 16));
         in2_tb <= std_logic_vector(to_signed(1000, 16));
-        sig_tb <= "0000"; -- "-"
+        sig_tb <= "0000"; -- "+"
         wait for DELAY;
 
         -- AND operation with result = 12

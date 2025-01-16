@@ -63,7 +63,7 @@ begin
                 result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
             
             when 3 => -- Case OR
-            temp_result <= signed('0' & (in1 and in2));
+            temp_result <= signed('0' & (in1 or in2));
                 result <= std_logic_vector(temp_result(WIDTH - 1 downto 0));
 
             when 4 => -- Case NOT in1
